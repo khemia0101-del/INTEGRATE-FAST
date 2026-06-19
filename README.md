@@ -1,37 +1,129 @@
 # Integrate Fast
 
-Manus-free rebuild of the Integrate Fast AI implementation consulting site.
+Manus-free rebuild of the Integrate Fast AI implementation consulting website.
 
-## What Is Included
+This app replaces the original Manus-hosted site with a first-party Next.js implementation. It keeps the Integrate Fast consulting experience, AI audit flow, profit calculator, podcasts, lead capture, and AI consultant chat while removing all Manus runtime/editor dependencies and all OpenClaw product surfaces.
 
-- Next.js App Router public site for Integrate Fast consulting.
-- AI consultant chat via `/api/chat`.
-- Profit calculator lead capture via `/api/calculator-lead`.
-- AI audit intake and generated snapshot via `/api/audit/start`.
-- Database schema for leads, audit sessions, and chat transcripts.
-- Resend notification support through environment variables.
-- Explicit 404s for removed OpenClaw/Admin routes.
+## Tech Stack
 
-## Environment
+- Next.js App Router
+- TypeScript
+- Tailwind CSS
+- Prisma
+- PostgreSQL in production
+- OpenAI API for chat and audit snapshot generation
+- Resend for internal lead/audit notifications
 
-Copy `.env.example` to `.env.local` and fill production values:
+## Routes
+
+- `/` - main Integrate Fast consulting landing page
+- `/ai-audit` - free AI audit intake and generated business snapshot
+- `/podcasts` - AI implementation case-study podcast page
+- `/api/chat` - first-party AI consultant endpoint
+- `/api/calculator-lead` - profit calculator lead capture
+- `/api/audit/start` - starts an audit session and generates the snapshot
+- `/api/audit/session/[sessionToken]` - fetches an audit session
+- `/api/accounting/status` - reports whether optional accounting credentials are configured
+
+Removed legacy routes intentionally return 404:
+
+- `/openclaw-concierge`
+- `/openclaw-concierge/configure`
+- `/openclaw-concierge/dashboard`
+- `/openclaw-podcast`
+- `/admin`
+
+## Local Setup
+
+Install dependencies:
 
 ```bash
-DATABASE_URL=
-OPENAI_API_KEY=
-RESEND_API_KEY=
-LEADS_TO_EMAIL=hello@integratefast.com
-FROM_EMAIL="Integrate Fast <noreply@integratefast.com>"
+npm install
 ```
 
-Without `DATABASE_URL`, the API routes use an in-memory local fallback for development. Without
-`OPENAI_API_KEY`, chat and audit generation use deterministic fallback responses.
-
-## Commands
+Run the development server:
 
 ```bash
 npm run dev
-npm run typecheck
-npm run build
-npm run test
 ```
+
+Open:
+
+```text
+http://localhost:3000
+```
+
+## Environment Variables
+
+Copy `.env.example` to `.env.local` and fill the values needed for your environment.
+
+```bash
+DATABASE_URL="postgresql://user:password@host:5432/integratefast?schema=public"
+OPENAI_API_KEY=""
+RESEND_API_KEY=""
+LEADS_TO_EMAIL="hello@integratefast.com"
+FROM_EMAIL="Integrate Fast <noreply@integratefast.com>"
+PLAID_CLIENT_ID=""
+PLAID_SECRET=""
+QUICKBOOKS_CLIENT_ID=""
+QUICKBOOKS_CLIENT_SECRET=""
+```
+
+Development fallbacks:
+
+- Without `DATABASE_URL`, API routes use an in-memory store.
+- Without `OPENAI_API_KEY`, chat and audit generation use deterministic fallback responses.
+- Without `RESEND_API_KEY`, notification emails are skipped and logged.
+- Plaid and QuickBooks are optional and only reported as enabled when their env vars exist.
+
+## Database
+
+Generate Prisma Client:
+
+```bash
+npm run build
+```
+
+For production, create the database from `prisma/schema.prisma` using your normal migration/deploy flow before enabling `DATABASE_URL`.
+
+The schema stores:
+
+- leads
+- audit sessions
+- chat transcripts
+
+## Validation
+
+Run the main checks:
+
+```bash
+npm run lint
+npm run typecheck
+npm run test
+npm run build
+```
+
+`npm run test` runs `scripts/route-audit.ts`, which checks that:
+
+- no Manus domains or globals are present in source
+- removed OpenClaw/Admin routes exist as explicit 404 pages
+
+## Deployment
+
+The app is Vercel-compatible.
+
+Before deploying, configure production environment variables for:
+
+- `DATABASE_URL`
+- `OPENAI_API_KEY`
+- `RESEND_API_KEY`
+- `LEADS_TO_EMAIL`
+- `FROM_EMAIL`
+
+Optional accounting integrations can be enabled later with Plaid and QuickBooks credentials.
+
+## Notes
+
+- No Manus runtime, editor globals, Manus CDN scripts, or Manus analytics are used.
+- OpenClaw Concierge, checkout, deployment, dashboard, admin billing, and OpenClaw podcast content were intentionally removed.
+- The contact email is `hello@integratefast.com`.
