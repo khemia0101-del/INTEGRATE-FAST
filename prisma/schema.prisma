@@ -1,0 +1,65 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum LeadSource {
+  PROFIT_CALCULATOR
+  AI_AUDIT
+  AI_CHAT
+  CONTACT
+}
+
+enum AuditStatus {
+  SNAPSHOT_READY
+  CONTRACT_PENDING
+  CONNECTION_PENDING
+  REPORT_PENDING
+  REPORT_READY
+}
+
+model Lead {
+  id              String     @id @default(cuid())
+  source          LeadSource
+  firstName       String?
+  contactName     String?
+  companyName     String
+  email           String
+  phone           String?
+  industry        String?
+  annualRevenue   String?
+  profitMargin    String?
+  estimatedGain   Int?
+  integrateFastFee Int?
+  clientNetGain   Int?
+  metadata        Json?
+  createdAt       DateTime   @default(now())
+}
+
+model AuditSession {
+  id             String      @id @default(cuid())
+  sessionToken   String      @unique
+  companyName    String
+  industry       String
+  annualRevenue  String
+  employees      String
+  contactName    String
+  contactEmail   String
+  contactPhone   String?
+  snapshot       Json?
+  status         AuditStatus @default(SNAPSHOT_READY)
+  createdAt      DateTime    @default(now())
+  updatedAt      DateTime    @updatedAt
+}
+
+model ChatTranscript {
+  id        String   @id @default(cuid())
+  visitorId String
+  email     String?
+  messages  Json
+  createdAt DateTime @default(now())
+}

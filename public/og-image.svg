@@ -1,0 +1,10 @@
+<svg width="1200" height="630" viewBox="0 0 1200 630" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="1200" height="630" fill="#0F172A"/>
+  <circle cx="1010" cy="120" r="260" fill="#4F46E5" opacity="0.45"/>
+  <circle cx="190" cy="520" r="260" fill="#9333EA" opacity="0.35"/>
+  <rect x="96" y="96" width="1008" height="438" rx="48" fill="white" fill-opacity="0.08" stroke="white" stroke-opacity="0.2"/>
+  <text x="140" y="210" fill="#C4B5FD" font-family="Arial, sans-serif" font-size="34" font-weight="700">Integrate Fast</text>
+  <text x="140" y="314" fill="white" font-family="Georgia, serif" font-size="78" font-weight="700">AI That Pays</text>
+  <text x="140" y="402" fill="white" font-family="Georgia, serif" font-size="78" font-weight="700">For Itself.</text>
+  <text x="144" y="472" fill="#CBD5E1" font-family="Arial, sans-serif" font-size="30">Performance-based AI implementation consulting</text>
+</svg>
