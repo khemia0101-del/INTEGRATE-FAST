@@ -61,7 +61,7 @@ Copy `.env.example` to `.env.local` and fill the values needed for your environm
 DATABASE_URL="postgresql://user:password@host:5432/integratefast?schema=public"
 OPENAI_API_KEY=""
 RESEND_API_KEY=""
-LEADS_TO_EMAIL="hello@integratefast.com"
+LEADS_TO_EMAIL="info@integratefast.com"
 FROM_EMAIL="Integrate Fast <noreply@integratefast.com>"
 PLAID_CLIENT_ID=""
 PLAID_SECRET=""
@@ -126,4 +126,4 @@ Optional accounting integrations can be enabled later with Plaid and QuickBooks 
 
 - No Manus runtime, editor globals, Manus CDN scripts, or Manus analytics are used.
 - OpenClaw Concierge, checkout, deployment, dashboard, admin billing, and OpenClaw podcast content were intentionally removed.
-- The contact email is `hello@integratefast.com`.
+- The contact email is `info@integratefast.com`.

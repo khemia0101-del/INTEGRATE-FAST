@@ -255,7 +255,7 @@ function Footer() {
         <div className="flex flex-col gap-3 text-slate-300 md:text-right">
           <Link href="/ai-audit">Free AI Audit</Link>
           <Link href="/podcasts">Podcasts</Link>
-          <a href="mailto:hello@integratefast.com">hello@integratefast.com</a>
+          <a href="mailto:info@integratefast.com">info@integratefast.com</a>
           <p className="text-sm text-slate-500">© 2026 Integrate Fast LLC. All rights reserved.</p>
         </div>
       </div>

@@ -12,7 +12,7 @@ export async function sendInternalNotification(payload: EmailPayload) {
   }
 
   const resend = new Resend(process.env.RESEND_API_KEY);
-  const to = process.env.LEADS_TO_EMAIL ?? "hello@integratefast.com";
+  const to = process.env.LEADS_TO_EMAIL ?? "info@integratefast.com";
   const from = process.env.FROM_EMAIL ?? "Integrate Fast <noreply@integratefast.com>";
 
   return resend.emails.send({
